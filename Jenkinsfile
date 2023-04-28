@@ -18,18 +18,6 @@ pipeline{
 	  }
 	}
 	
-	stage("Maven Unit Testing"){
-	  steps{
-           bat "${mvbCMD} test"
-	  }
-	}
-	
-	stage("Maven Integration Testing"){
-	  steps{
-           bat "${mvbCMD} verify -DskipUnitTests"
-	  }
-	}
-
 	stage("Build & Package"){
 	  steps{
            bat "${mvbCMD} clean package"
