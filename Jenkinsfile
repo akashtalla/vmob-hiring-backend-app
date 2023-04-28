@@ -36,6 +36,21 @@ pipeline{
 	  }
 	}
 	
+	stage("Create Docker Image"){
+	  steps{
+           bat "docker build -t akashtalla/vmob-hiring-backend-app:${BUILD_ID} ."
+	  }
+	}
+	
+	stage("Docker Image Push"){
+	  steps{
+	    withCredentials([string(credentialsId: 'dockerPass', variable: 'PassDoc')]) {
+             bat "docker login -u akashtalla -p ${PassDoc}"   
+	    }
+		bat "docker push akashtalla/vmob-hiring-backend-app:${BUILD_ID}"
+	  }
+	}
+	
   }
   
 }
